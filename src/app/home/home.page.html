@@ -1,25 +1,21 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Inbox
-    </ion-title>
+    <ion-title>GPS Address</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">
-        Inbox
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-list>
-    <app-message *ngFor="let message of getMessages()" [message]="message"></app-message>
-  </ion-list>
+  <capacitor-google-map #map id="map"></capacitor-google-map>
+  <ion-item class="footer">
+    <div *ngIf="latitude !== null && longitude !== null">
+      <p>Latitude: {{ latitude }}</p>
+      <p>Longitude: {{ longitude }}</p>
+    </div>
+    <div *ngIf="latitude === null && longitude === null">
+      <p>Waiting for location...</p>
+    </div>
+    <div>
+      <ion-button (click)="handleSave()" class="btn">Save</ion-button>
+    </div>
+  </ion-item>
 </ion-content>
